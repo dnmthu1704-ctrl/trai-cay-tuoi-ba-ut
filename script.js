@@ -18,6 +18,56 @@ document.querySelectorAll('.faq-item').forEach(item => {
   });
 });
 
+// Khuyến mãi "Thứ 2 Flash Sale": Hộp tiêu chuẩn 20K cho 5 khách đầu tiên trong ngày
+// Đổi PROMO_DAY (0=CN, 1=T2, ... 6=T7) nếu muốn áp dụng ngày khác
+const PROMO_DAY = 1;
+const PROMO_TEXT = 'ÁP DỤNG KHUYẾN MÃI THỨ 2: Hộp tiêu chuẩn 20.000đ (5 khách đầu tiên)';
+let promoClaimed = false;
+
+const isPromoDayToday = new Date().getDay() === PROMO_DAY;
+const promoBanner = document.getElementById('promoBanner');
+const promoOverlay = document.getElementById('promoOverlay');
+const promoClose = document.getElementById('promoClose');
+const promoSkip = document.getElementById('promoSkip');
+const promoClaimBtn = document.getElementById('promoClaimBtn');
+const promoBannerCta = document.getElementById('promoBannerCta');
+
+function closePromoPopup() {
+  promoOverlay.hidden = true;
+  sessionStorage.setItem('promoPopupSeen', '1');
+}
+
+function claimPromo() {
+  promoClaimed = true;
+  closePromoPopup();
+  const loaiHopSelect = document.querySelector('select[name="loaihop"]');
+  const ghiChuField = document.querySelector('textarea[name="ghichu"]');
+  if (loaiHopSelect) loaiHopSelect.value = 'Hộp tiêu chuẩn 45K';
+  if (ghiChuField && !ghiChuField.value.includes(PROMO_TEXT)) {
+    ghiChuField.value = (PROMO_TEXT + (ghiChuField.value ? ' | ' + ghiChuField.value : ''));
+  }
+  document.getElementById('dat-hang').scrollIntoView({ behavior: 'smooth' });
+}
+
+if (isPromoDayToday && promoBanner && promoOverlay) {
+  promoBanner.hidden = false;
+
+  if (!sessionStorage.getItem('promoPopupSeen')) {
+    setTimeout(() => { promoOverlay.hidden = false; }, 2500);
+  }
+
+  promoClose.addEventListener('click', closePromoPopup);
+  promoSkip.addEventListener('click', closePromoPopup);
+  promoOverlay.addEventListener('click', (e) => {
+    if (e.target === promoOverlay) closePromoPopup();
+  });
+  promoClaimBtn.addEventListener('click', claimPromo);
+  promoBannerCta.addEventListener('click', (e) => {
+    e.preventDefault();
+    claimPromo();
+  });
+}
+
 // Order form submit -> lưu đơn hàng vào Supabase (database thật)
 const SUPABASE_URL = 'https://lpohquwgcptxaeydxoqp.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_whhH7BmhCJaqdyJ6lZxFtA_60OOGDBd';

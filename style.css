@@ -497,3 +497,94 @@ body { padding-bottom: 64px; }
 @media (min-width: 900px) {
   body { padding-bottom: 0; }
 }
+
+/* PROMO BANNER */
+.promo-banner {
+  background: linear-gradient(90deg, var(--orange), #ff8a5b);
+  color: #fff;
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 10px 16px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.promo-banner[hidden] { display: none; }
+.promo-banner__cta {
+  background: #fff;
+  color: var(--purple-dark);
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 4px 14px;
+  font-size: 0.8rem;
+}
+
+/* PROMO POPUP */
+.promo-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(60, 40, 90, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 200;
+}
+.promo-overlay[hidden] { display: none; }
+.promo-modal {
+  position: relative;
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 32px 26px;
+  max-width: 360px;
+  width: 100%;
+  text-align: center;
+  box-shadow: var(--shadow);
+  animation: promoPop 0.25s ease-out;
+}
+@keyframes promoPop {
+  from { transform: scale(0.92); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+.promo-modal__close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  color: var(--text-light);
+  cursor: pointer;
+}
+.promo-modal__tag {
+  display: inline-block;
+  background: var(--purple-light);
+  color: var(--purple-dark);
+  font-weight: 700;
+  font-size: 0.8rem;
+  border-radius: 999px;
+  padding: 6px 14px;
+  margin-bottom: 12px;
+}
+.promo-modal__title {
+  font-size: 1.5rem;
+  color: var(--purple-dark);
+  margin-bottom: 10px;
+}
+.promo-modal__desc {
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+.promo-modal__skip {
+  background: none;
+  border: none;
+  color: var(--text-light);
+  margin-top: 12px;
+  font-size: 0.85rem;
+  text-decoration: underline;
+  cursor: pointer;
+}

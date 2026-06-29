@@ -12,6 +12,12 @@
 </head>
 <body>
 
+<!-- PROMO BANNER -->
+<div class="promo-banner" id="promoBanner" hidden>
+  🔥 <strong>Khuyến mãi Thứ 2:</strong> Hộp tiêu chuẩn chỉ <strong>20.000đ</strong> — áp dụng cho 5 khách đặt đầu tiên trong ngày!
+  <a href="#dat-hang" class="promo-banner__cta" id="promoBannerCta">Đặt ngay</a>
+</div>
+
 <!-- HEADER -->
 <header class="header" id="header">
   <div class="container header__inner">
@@ -26,6 +32,18 @@
     <button class="nav-toggle" id="navToggle" aria-label="Mở menu">☰</button>
   </div>
 </header>
+
+<!-- PROMO POPUP -->
+<div class="promo-overlay" id="promoOverlay" hidden>
+  <div class="promo-modal">
+    <button class="promo-modal__close" id="promoClose" aria-label="Đóng">✕</button>
+    <p class="promo-modal__tag">🔥 ƯU ĐÃI THỨ 2</p>
+    <h3 class="promo-modal__title">Hộp tiêu chuẩn chỉ 20.000đ</h3>
+    <p class="promo-modal__desc">Áp dụng riêng cho <strong>5 khách đặt hàng đầu tiên</strong> trong hôm nay. Đặt nhanh để không lỡ ưu đãi!</p>
+    <button class="btn btn--primary btn--block" id="promoClaimBtn">Nhận ưu đãi ngay</button>
+    <button class="promo-modal__skip" id="promoSkip">Để sau</button>
+  </div>
+</div>
 
 <main id="top">
 
