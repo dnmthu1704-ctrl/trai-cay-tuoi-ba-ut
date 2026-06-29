@@ -1,0 +1,178 @@
+LỊCH SỬ TRAO ĐỔI VỚI CLAUDE CODE
+Dự án: Landing page "Trái Cây Tươi Bà Út"
+Repo GitHub: https://github.com/dnmthu1704-ctrl/trai-cay-tuoi-ba-ut
+Link deploy: https://dnmthu1704-ctrl.github.io/trai-cay-tuoi-ba-ut/
+================================================================
+
+GHI CHÚ: File này là bản tóm tắt lại toàn bộ quá trình trao đổi và các
+bước thực hiện trong phiên làm việc với Claude Code, được tổng hợp thay
+cho lệnh /export (môi trường làm việc hiện tại không hỗ trợ chạy trực
+tiếp lệnh /export từ phía trợ lý).
+
+----------------------------------------------------------------
+1. YÊU CẦU BAN ĐẦU
+----------------------------------------------------------------
+User yêu cầu xây dựng landing page bán "hộp trái cây tươi" cho thương
+hiệu Trái Cây Tươi Bà Út, mục tiêu tăng chuyển đổi đặt hàng. Yêu cầu chi
+tiết gồm: thông tin thương hiệu, giá bán 45-50K/hộp, hotline 0987024923,
+địa chỉ 25/51 Trần Văn Đang, đối tượng khách hàng (dân văn phòng, học
+sinh/sinh viên, người ăn healthy), yêu cầu kỹ thuật (HTML/CSS/JS thuần,
+responsive, mobile-first), phong cách thiết kế tím pastel, cấu trúc đầy
+đủ 11 section (Header, Hero, Vấn đề, Giải pháp, Bảng giá, Lợi ích, Quy
+trình, Feedback, Form đặt hàng, FAQ, Footer), yêu cầu SEO, copywriting.
+
+=> Claude Code đã tạo dự án mới tại:
+   /Users/dnmthw/Downloads/trai-cay-tuoi-ba-ut/
+   gồm: index.html, style.css, script.js, assets/
+
+----------------------------------------------------------------
+2. PREVIEW TRÊN TRÌNH DUYỆT
+----------------------------------------------------------------
+- User yêu cầu xem trước landing page trên trình duyệt.
+- Gặp lỗi 404 khi dùng server preview qua sandbox (do giới hạn quyền
+  truy cập file của môi trường sandbox).
+- Giải pháp: hướng dẫn user mở trực tiếp file qua đường dẫn file://
+  trong trình duyệt - hoạt động thành công.
+
+----------------------------------------------------------------
+3. ĐƯA LÊN GITHUB + GITHUB PAGES
+----------------------------------------------------------------
+- User muốn đưa code lên GitHub để ai cũng xem được.
+- Claude Code cài đặt GitHub CLI (gh) qua Homebrew, hướng dẫn user đăng
+  nhập gh auth login bằng mã thiết bị (device code) qua trình duyệt.
+- Sau khi đăng nhập thành công (tài khoản dnmthu1704-ctrl):
+  + git init, commit code lần đầu
+  + gh repo create --public --source=. --remote=origin --push
+  + Bật GitHub Pages qua gh api (POST /pages)
+- Kết quả: repo public + link Pages hoạt động.
+
+----------------------------------------------------------------
+4. CẬP NHẬT HÌNH ẢNH (TRÁNH VI PHẠM BẢN QUYỀN)
+----------------------------------------------------------------
+- User gửi ảnh thumbnail từ Google Images để dùng làm ảnh minh hoạ.
+- Claude Code TỪ CHỐI dùng trực tiếp vì lo ngại bản quyền (ảnh không rõ
+  nguồn, không phải ảnh do user sở hữu).
+- Đề xuất 3 hướng: tự chụp ảnh thật / dùng ảnh stock free bản quyền
+  (Unsplash) / vẽ minh hoạ SVG.
+- Lần đầu: dùng SVG minh hoạ hộp trái cây phong cách tím pastel.
+- User phản hồi muốn ảnh thật hơn -> đổi sang ảnh stock Unsplash (free
+  bản quyền, được phép dùng thương mại) cho 3 vị trí: hero, solution,
+  order/contact.
+
+----------------------------------------------------------------
+5. KIỂM TRA BÀI TẬP THEO NỘI DUNG BUỔI HỌC "CLAUDE CODE CHO SEONGON #2"
+----------------------------------------------------------------
+- User gửi file PDF slide bài giảng buổi 2 (44 trang) - nội dung về kiến
+  trúc web app (Frontend - Backend - Database), Object Storage, bảo mật
+  (.env, RLS), deployment (Railway/Netlify/Vercel), và yêu cầu bài tập
+  nộp link GitHub public + file lịch sử chat trước 23h59 Thứ 5
+  14/05/2026.
+- Claude Code đọc toàn bộ slide, tóm tắt nội dung dễ hiểu cho người
+  không biết code.
+- Sau đó user yêu cầu kiểm tra lại bài tập GitHub hiện tại so với yêu
+  cầu bài giảng.
+- Phát hiện các lỗi nghiêm trọng:
+  1) Repo chỉ có Frontend (HTML/CSS/JS), KHÔNG có Backend và Database
+     theo đúng yêu cầu buổi 1.
+  2) Form đặt hàng không gửi dữ liệu đi đâu cả (chỉ preventDefault rồi
+     hiện thông báo JS, dữ liệu khách bị mất).
+  3) Repo đang ở chế độ PRIVATE (sai yêu cầu "mở public" trong slide).
+
+----------------------------------------------------------------
+6. NÂNG CẤP: THÊM BACKEND + DATABASE THẬT (SUPABASE)
+----------------------------------------------------------------
+- User đồng ý nâng cấp theo đúng kiến thức buổi 2: dùng Supabase (kết
+  hợp Database + Data API tự sinh đóng vai trò Backend).
+- Các bước thực hiện:
+  + User tự tạo project Supabase (vì cần đăng nhập tài khoản cá nhân).
+  + Claude Code soạn SQL tạo bảng "orders" (ho_ten, so_dien_thoai,
+    loai_hop, so_luong, dia_chi, ghi_chu) + RLS policy cho phép insert.
+  + User chạy SQL trong Supabase SQL Editor.
+  + Debug nhiều vòng lỗi 401 "row-level security policy violation":
+    - Lỗi 1: key publishable mới không khớp role anon trong policy cũ
+      -> sửa policy "to public".
+    - Lỗi 2: role anon thiếu GRANT INSERT cấp bảng -> thêm GRANT.
+    - Lỗi 3 (nguyên nhân thật): câu lệnh TEST của Claude dùng header
+      "Prefer: return=representation" yêu cầu trả lại dòng vừa insert,
+      nhưng bảng chưa có policy SELECT -> Postgres báo lỗi RLS dù
+      INSERT thực ra hợp lệ. Đổi sang "return=minimal" (đúng như code
+      thực tế trong script.js) -> insert thành công (HTTP 201).
+  + Cập nhật script.js: gửi dữ liệu form qua fetch() POST tới Supabase
+    REST API (https://lpohquwgcptxaeydxoqp.supabase.co/rest/v1/orders).
+  + Commit + push code, dọn dữ liệu test trên Supabase.
+  + Chuyển repo từ private sang public (gh repo edit --visibility
+    public), bật lại GitHub Pages (đã bị tắt tự động khi repo từng ở
+    chế độ private).
+
+----------------------------------------------------------------
+7. SỬA LỖI GIAO DIỆN: FORM KHÔNG ẨN SAU KHI GỬI THÀNH CÔNG
+----------------------------------------------------------------
+- User báo nút "Đang gửi..." bị kẹt dù đã hiện thông báo cảm ơn.
+- Nguyên nhân: CSS ".order-form { display: flex }" có độ ưu tiên
+  (specificity) ngang bằng và đứng sau rule ẩn mặc định của thuộc tính
+  [hidden] trong trình duyệt, nên thuộc tính hidden bị JS gắn vào
+  không có tác dụng ẩn form.
+- Khắc phục: thêm rule ".order-form[hidden] { display: none; }" để ưu
+  tiên đúng. Build lại GitHub Pages, xác nhận hoạt động đúng.
+
+----------------------------------------------------------------
+8. NÂNG CẤP GIAO DIỆN: POPUP + KHUYẾN MÃI + CHỌN TRÁI CÂY
+----------------------------------------------------------------
+- User yêu cầu thêm:
+  a) Banner + popup khuyến mãi "9.000đ/hộp cho 1 khách đặt hàng đầu
+     tiên trong ngày", banner cần to/nổi bật hơn.
+  b) Cho khách chọn loại trái cây muốn mix (Táo, Ổi, Mận, Dâu, Thơm,
+     Cherry, Dưa hấu, Kiwi) bằng checkbox + emoji (tránh dùng ảnh thật
+     từ Google vì lý do bản quyền), kèm dòng liên hệ hotline nếu muốn
+     thêm loại khác.
+  c) Đổi ảnh hero sang ảnh đẹp hơn do user cung cấp.
+- Về ảnh: Claude Code hỏi rõ nguồn gốc ảnh trước khi dùng (đã xác nhận
+  là ảnh sản phẩm thật của user) để tránh vi phạm bản quyền, sau đó
+  hướng dẫn user lưu ảnh vào Downloads rồi convert .webp sang .jpg bằng
+  lệnh "sips" trên macOS, thay vào assets/hop-trai-cay-tuoi-ba-ut.jpg.
+- Thêm cột "trai_cay_chon" trong bảng Supabase (ALTER TABLE).
+- Cập nhật script.js để thu thập trái cây đã chọn, gửi kèm trong dữ
+  liệu đơn hàng.
+- Commit + push, theo dõi và xác nhận GitHub Pages build xong.
+
+----------------------------------------------------------------
+9. CHỐNG LẠM DỤNG KHUYẾN MÃI (1 SỐ ĐIỆN THOẠI CHỈ DÙNG 1 LẦN)
+----------------------------------------------------------------
+- User muốn chặn trường hợp 1 số điện thoại dùng ưu đãi "khách đầu
+  tiên" nhiều lần.
+- Giải pháp bảo mật: tạo Postgres function "has_used_promo(phone text)"
+  SECURITY DEFINER, chỉ trả về true/false (không mở quyền đọc toàn bộ
+  bảng orders ra public - tránh lộ thông tin cá nhân khách hàng khác).
+  GRANT EXECUTE cho role anon.
+- Cập nhật script.js: trước khi gửi đơn có gắn cờ khuyến mãi, gọi RPC
+  has_used_promo để kiểm tra; nếu true thì chặn submit và hiển thị
+  cảnh báo dưới ô số điện thoại.
+- Test trực tiếp qua curl xác nhận hàm hoạt động đúng (false/true theo
+  đúng dữ liệu), dọn dữ liệu test, commit + push.
+
+----------------------------------------------------------------
+10. NỘP BÀI
+----------------------------------------------------------------
+- Gán link deploy vào phần "About" của repo GitHub (gh repo edit
+  --homepage).
+- Link nộp bài cho SEONGON:
+  https://github.com/dnmthu1704-ctrl/trai-cay-tuoi-ba-ut
+- Link sản phẩm deploy:
+  https://dnmthu1704-ctrl.github.io/trai-cay-tuoi-ba-ut/
+- File này (lich-su-trao-doi-claude-code.txt) được tạo để nộp kèm theo
+  yêu cầu "File ghi chép lại lịch sử trò chuyện với Claude Code".
+
+================================================================
+KIẾN TRÚC CUỐI CÙNG CỦA SẢN PHẨM
+================================================================
+- Frontend: index.html, style.css, script.js (giao diện, banner/popup
+  khuyến mãi, form đặt hàng, chọn trái cây mix)
+- Backend: Supabase Data API (PostgREST tự sinh từ schema database) +
+  1 Postgres function (has_used_promo) xử lý logic kiểm tra khuyến mãi
+- Database: Supabase PostgreSQL, bảng "orders" (lưu đơn hàng thật của
+  khách), có Row Level Security (RLS) bảo vệ dữ liệu, GRANT quyền insert
+  cho role anon
+- Deployment: GitHub Pages (build từ branch main)
+- Bảo mật: dùng anon public key (được phép public) cho phía client,
+  RLS + RPC giới hạn quyền truy cập dữ liệu, không có API key/secret
+  nào bị lộ trong code.
