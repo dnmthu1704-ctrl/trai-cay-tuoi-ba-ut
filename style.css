@@ -351,6 +351,9 @@ ul { list-style: none; }
   flex-direction: column;
   gap: 14px;
 }
+.order-form[hidden] {
+  display: none;
+}
 .order-form label {
   display: flex;
   flex-direction: column;
