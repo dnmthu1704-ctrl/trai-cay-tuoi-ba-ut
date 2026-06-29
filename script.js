@@ -75,6 +75,21 @@ const SUPABASE_ANON_KEY = 'sb_publishable_whhH7BmhCJaqdyJ6lZxFtA_60OOGDBd';
 const orderForm = document.getElementById('orderForm');
 const orderSuccess = document.getElementById('orderSuccess');
 const orderError = document.getElementById('orderError');
+const promoUsedError = document.getElementById('promoUsedError');
+
+async function checkPhoneUsedPromo(phone) {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/rpc/has_used_promo`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      apikey: SUPABASE_ANON_KEY,
+      Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+    },
+    body: JSON.stringify({ phone }),
+  });
+  if (!res.ok) return false; // nếu lỗi kiểm tra, không chặn khách đặt hàng
+  return res.json();
+}
 
 orderForm.addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -83,16 +98,31 @@ orderForm.addEventListener('submit', async (e) => {
   submitBtn.disabled = true;
   submitBtn.textContent = 'Đang gửi...';
   if (orderError) orderError.hidden = true;
+  if (promoUsedError) promoUsedError.hidden = true;
 
   const formData = new FormData(orderForm);
   const traiCayChon = formData.getAll('traicay').join(', ');
+  const phone = formData.get('sdt');
+  let ghiChu = formData.get('ghichu') || null;
+
+  if (promoClaimed) {
+    const alreadyUsed = await checkPhoneUsedPromo(phone);
+    if (alreadyUsed) {
+      promoUsedError.hidden = false;
+      promoUsedError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Gửi đơn đặt hàng';
+      return;
+    }
+  }
+
   const payload = {
     ho_ten: formData.get('hoten'),
-    so_dien_thoai: formData.get('sdt'),
+    so_dien_thoai: phone,
     loai_hop: formData.get('loaihop'),
     so_luong: Number(formData.get('soluong')),
     dia_chi: formData.get('diachi'),
-    ghi_chu: formData.get('ghichu') || null,
+    ghi_chu: ghiChu,
     trai_cay_chon: traiCayChon || null,
   };
 
