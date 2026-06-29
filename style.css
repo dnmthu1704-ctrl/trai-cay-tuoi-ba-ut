@@ -354,6 +354,47 @@ ul { list-style: none; }
 .order-form[hidden] {
   display: none;
 }
+.fruit-pick {
+  border: 2px solid var(--purple-light);
+  border-radius: var(--radius-md);
+  padding: 14px 16px 16px;
+  margin: 0;
+}
+.fruit-pick legend {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--purple-dark);
+  padding: 0 4px;
+}
+.fruit-pick__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-top: 8px;
+}
+@media (min-width: 480px) {
+  .fruit-pick__grid { grid-template-columns: repeat(4, 1fr); }
+}
+.fruit-pick__item {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center;
+  gap: 6px;
+  background: var(--cream);
+  border-radius: 999px;
+  padding: 8px 10px;
+  font-weight: 600 !important;
+  font-size: 0.85rem !important;
+  cursor: pointer;
+}
+.fruit-pick__item input { width: 16px; height: 16px; accent-color: var(--purple-dark); }
+.fruit-pick__note {
+  font-size: 0.8rem;
+  color: var(--text-light);
+  font-weight: 400;
+  margin-top: 10px;
+}
+
 .order-form label {
   display: flex;
   flex-direction: column;
@@ -503,23 +544,30 @@ body { padding-bottom: 64px; }
   background: linear-gradient(90deg, var(--orange), #ff8a5b);
   color: #fff;
   text-align: center;
-  font-size: 0.85rem;
-  font-weight: 600;
-  padding: 10px 16px;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 18px 16px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 12px;
+  line-height: 1.4;
 }
 .promo-banner[hidden] { display: none; }
+.promo-banner strong { font-size: 1.15em; }
 .promo-banner__cta {
   background: #fff;
   color: var(--purple-dark);
   font-weight: 700;
   border-radius: 999px;
-  padding: 4px 14px;
-  font-size: 0.8rem;
+  padding: 8px 22px;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+@media (min-width: 700px) {
+  .promo-banner { font-size: 1.2rem; padding: 22px 24px; }
+  .promo-banner__cta { font-size: 1.05rem; padding: 10px 26px; }
 }
 
 /* PROMO POPUP */

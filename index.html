@@ -14,7 +14,7 @@
 
 <!-- PROMO BANNER -->
 <div class="promo-banner" id="promoBanner" hidden>
-  🔥 <strong>Khuyến mãi Thứ 2:</strong> Hộp tiêu chuẩn chỉ <strong>20.000đ</strong> — áp dụng cho 5 khách đặt đầu tiên trong ngày!
+  🔥 <strong>Ưu đãi đặc biệt:</strong> Chỉ <strong>9.000đ/hộp</strong> — dành riêng cho <strong>1 khách đặt hàng đầu tiên</strong> trong ngày!
   <a href="#dat-hang" class="promo-banner__cta" id="promoBannerCta">Đặt ngay</a>
 </div>
 
@@ -37,9 +37,9 @@
 <div class="promo-overlay" id="promoOverlay" hidden>
   <div class="promo-modal">
     <button class="promo-modal__close" id="promoClose" aria-label="Đóng">✕</button>
-    <p class="promo-modal__tag">🔥 ƯU ĐÃI THỨ 2</p>
-    <h3 class="promo-modal__title">Hộp tiêu chuẩn chỉ 20.000đ</h3>
-    <p class="promo-modal__desc">Áp dụng riêng cho <strong>5 khách đặt hàng đầu tiên</strong> trong hôm nay. Đặt nhanh để không lỡ ưu đãi!</p>
+    <p class="promo-modal__tag">🔥 ƯU ĐÃI ĐẶC BIỆT</p>
+    <h3 class="promo-modal__title">Chỉ 9.000đ/hộp</h3>
+    <p class="promo-modal__desc">Áp dụng riêng cho <strong>1 khách đặt hàng đầu tiên</strong> trong hôm nay. Đặt nhanh để không lỡ ưu đãi!</p>
     <button class="btn btn--primary btn--block" id="promoClaimBtn">Nhận ưu đãi ngay</button>
     <button class="promo-modal__skip" id="promoSkip">Để sau</button>
   </div>
@@ -203,6 +203,20 @@
               <option value="Combo văn phòng">Combo văn phòng (liên hệ)</option>
             </select>
           </label>
+          <fieldset class="fruit-pick">
+            <legend>Chọn loại trái cây muốn mix (tuỳ chọn)</legend>
+            <div class="fruit-pick__grid">
+              <label class="fruit-pick__item"><input type="checkbox" name="traicay" value="Táo"><span>🍎 Táo</span></label>
+              <label class="fruit-pick__item"><input type="checkbox" name="traicay" value="Ổi"><span>🍐 Ổi</span></label>
+              <label class="fruit-pick__item"><input type="checkbox" name="traicay" value="Mận"><span>🍑 Mận</span></label>
+              <label class="fruit-pick__item"><input type="checkbox" name="traicay" value="Dâu"><span>🍓 Dâu</span></label>
+              <label class="fruit-pick__item"><input type="checkbox" name="traicay" value="Thơm"><span>🍍 Thơm</span></label>
+              <label class="fruit-pick__item"><input type="checkbox" name="traicay" value="Cherry"><span>🍒 Cherry</span></label>
+              <label class="fruit-pick__item"><input type="checkbox" name="traicay" value="Dưa hấu"><span>🍉 Dưa hấu</span></label>
+              <label class="fruit-pick__item"><input type="checkbox" name="traicay" value="Kiwi"><span>🥝 Kiwi</span></label>
+            </div>
+            <p class="fruit-pick__note">Muốn thêm loại trái cây khác? Liên hệ hotline <a href="tel:0987024923">0987 024 923</a></p>
+          </fieldset>
           <label>Số lượng
             <input type="number" name="soluong" min="1" value="1" required>
           </label>

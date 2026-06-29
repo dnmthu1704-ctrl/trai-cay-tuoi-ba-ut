@@ -18,13 +18,13 @@ document.querySelectorAll('.faq-item').forEach(item => {
   });
 });
 
-// Khuyến mãi "Thứ 2 Flash Sale": Hộp tiêu chuẩn 20K cho 5 khách đầu tiên trong ngày
-// Đổi PROMO_DAY (0=CN, 1=T2, ... 6=T7) nếu muốn áp dụng ngày khác
+// Khuyến mãi "Khách đầu tiên": 1 hộp giá 9.000đ cho khách đặt hàng đầu tiên trong ngày
+// Đổi PROMO_DAY (0=CN, 1=T2, ... 6=T7) nếu muốn áp dụng ngày khác, hoặc đặt -1 để áp dụng mọi ngày
 const PROMO_DAY = 1;
-const PROMO_TEXT = 'ÁP DỤNG KHUYẾN MÃI THỨ 2: Hộp tiêu chuẩn 20.000đ (5 khách đầu tiên)';
+const PROMO_TEXT = 'ÁP DỤNG ƯU ĐÃI KHÁCH ĐẦU TIÊN: 1 hộp giá 9.000đ';
 let promoClaimed = false;
 
-const isPromoDayToday = new Date().getDay() === PROMO_DAY;
+const isPromoDayToday = PROMO_DAY === -1 || new Date().getDay() === PROMO_DAY;
 const promoBanner = document.getElementById('promoBanner');
 const promoOverlay = document.getElementById('promoOverlay');
 const promoClose = document.getElementById('promoClose');
@@ -85,6 +85,7 @@ orderForm.addEventListener('submit', async (e) => {
   if (orderError) orderError.hidden = true;
 
   const formData = new FormData(orderForm);
+  const traiCayChon = formData.getAll('traicay').join(', ');
   const payload = {
     ho_ten: formData.get('hoten'),
     so_dien_thoai: formData.get('sdt'),
@@ -92,6 +93,7 @@ orderForm.addEventListener('submit', async (e) => {
     so_luong: Number(formData.get('soluong')),
     dia_chi: formData.get('diachi'),
     ghi_chu: formData.get('ghichu') || null,
+    trai_cay_chon: traiCayChon || null,
   };
 
   try {
