@@ -20,7 +20,7 @@ document.querySelectorAll('.faq-item').forEach(item => {
 
 // Khuyến mãi "Khách đầu tiên": 1 hộp giá 9.000đ cho khách đặt hàng đầu tiên trong ngày
 // Đổi PROMO_DAY (0=CN, 1=T2, ... 6=T7) nếu muốn áp dụng ngày khác, hoặc đặt -1 để áp dụng mọi ngày
-const PROMO_DAY = 1;
+const PROMO_DAY = -1; // -1 = áp dụng mọi ngày
 const PROMO_TEXT = 'ÁP DỤNG ƯU ĐÃI KHÁCH ĐẦU TIÊN: 1 hộp giá 9.000đ';
 let promoClaimed = false;
 
